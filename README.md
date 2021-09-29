@@ -40,3 +40,12 @@ pip3 install -r requirements.txt
 Przyklad:
 
 `sudo ./autoclone.py ubuntu-10 enp0s8 testFiles/macs.xml`
+
+Po wywolaniu tej komendy skrypt:
+
+* sprawdzi poprawnosc podanych argumentow
+* wczyta plik xml oraz zaladuje MAC adresy
+	- upewni sie ze wszystkie MAC adresy naleza do istniejacych uzytkownikow DRBL, a w przypadku znalezienia nowych adresow, doda je do bazy adresow DRBL-a
+* korzystajac z komendy `drbl-ocs` ustawi automatyczne wczytywanie wybranego obrazu systemu przez uzytkownikow
+* wysle magic packets, w celu wywolania WakeOnLAN-a dla wybranych uzytkownikow
+* Uzytkownicy po poprawnym zaldowaniu obrazu automatycznie sie wylacza
