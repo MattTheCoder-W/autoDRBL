@@ -42,7 +42,6 @@ Przyklad:
 `sudo ./autoclone.py ubuntu-10 enp0s8 testFiles/macs.xml`
 
 Po wywolaniu tej komendy skrypt:
-
 * sprawdzi poprawnosc podanych argumentow
 * wczyta plik xml oraz zaladuje MAC adresy
 	- upewni sie ze wszystkie MAC adresy naleza do istniejacych uzytkownikow DRBL, a w przypadku znalezienia nowych adresow, doda je do bazy adresow DRBL-a
