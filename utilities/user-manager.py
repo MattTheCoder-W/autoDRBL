@@ -3,7 +3,6 @@
 
 from curtsies.fmtfuncs import green, yellow, red, bold
 import os
-import time
 import sys
 
 
