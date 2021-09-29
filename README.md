@@ -1,6 +1,11 @@
 # autoDRBL
 Automatyzacja serwera DRBL.
 
+
+### Na wstepie
+Przepraszam za niezgodnosc jezykowa skryptu z komentarzami i niektorymi komunikatami, ale zwykne programowac po angielsku, a ten projekt powinien byc opisany po polsku.
+
+
 ## Wymagania
 Linux:
 
