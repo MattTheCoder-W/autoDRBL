@@ -1,11 +1,6 @@
 # autoDRBL
 Automatyzacja serwera DRBL.
 
-
-### Na wstepie
-Przepraszam za niezgodnosc jezykowa skryptu z komentarzami i niektorymi komunikatami, ale zwykne programowac po angielsku, a ten projekt powinien byc opisany po polsku.
-
-
 ## Wymagania
 Linux:
 
@@ -25,31 +20,31 @@ pip3 install -r requirements.txt
 
 ---
 
-## Sposob uzycia
+## Sposób użycia
 
 ### Przygotowanie
-1. Przygotowac obraz sysytemu, znajdujacy sie pod sciezka `/home/partimag/OBRAZ`
-2. Ustawic odpowiedni interfejs sieciowy pod serwer DRBL (w przykladzie `enp0s8`)
-3. Przygotowac liste MAC adresow w pliku XML zgodnym ze struktura znajdujaca sie w pliku [macs.xml](testFiles/macs.xml)
+1. Przygotować obraz sysytemu, znajdujacy się pod sciezką `/home/partimag/OBRAZ`
+2. Ustawić odpowiedni interfejs sieciowy pod serwer DRBL (w przykladzie `enp0s8`)
+3. Przygotować listę MAC adresów w pliku XML zgodnym ze strukturą znajdujacą się w pliku [macs.xml](testFiles/macs.xml)
 
 ### Automatyczny WakeOnLAN
 
 `sudo ./autoclone.py img interface xml`
 
-| parametr | opis | przyklad |
+| parametr | opis | przykład |
 | -------- | ---- | -------- |
 | `img` | nazwa obrazu | `ubuntu-10` (/home/partimag/ubuntu-10) |
 | `interface` | int. sieciowy | `enp0s8` |
 | `xml` | plik xml | `testFiles/macs.xml` |
 
-Przyklad:
+Przykład:
 
 `sudo ./autoclone.py ubuntu-10 enp0s8 testFiles/macs.xml`
 
 Po wywolaniu tej komendy skrypt:
-* sprawdzi poprawnosc podanych argumentow
-* wczyta plik xml oraz zaladuje MAC adresy
-	- upewni sie ze wszystkie MAC adresy naleza do istniejacych uzytkownikow DRBL, a w przypadku znalezienia nowych adresow, doda je do bazy adresow DRBL-a
-* korzystajac z komendy `drbl-ocs` ustawi automatyczne wczytywanie wybranego obrazu systemu przez uzytkownikow
-* wysle magic packets, w celu wywolania WakeOnLAN-a dla wybranych uzytkownikow
-* Uzytkownicy po poprawnym zaldowaniu obrazu automatycznie sie wylacza
+* sprawdzi poprawność podanych argumentów
+* wczyta plik xml oraz załaduje MAC adresy
+	- upewni się że wszystkie MAC adresy należą do list istniejacych użytkowników DRBL, a w przypadku znalezienia nowych adresów, doda je do bazy adresów DRBL-a
+* korzystając z komendy `drbl-ocs` ustawi automatyczne wczytywanie wybranego obrazu systemu przez użytkowników
+* wyśle magic packets, w celu wywołania WakeOnLAN dla wybranych użytkowników
+* Użytkownicy po poprawnym załdowaniu obrazu automatycznie się wyłączą
