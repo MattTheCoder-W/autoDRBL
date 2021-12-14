@@ -101,7 +101,7 @@ def loadxml(sXmlFilePath):
 
 def usage_page():
     print("Usage: sudo ./autoclone.py img interface macXmlFile")
-	print("\timg - image folder name from /home/partimag/")
+    print("\timg - image folder name from /home/partimag/")
 	print("\tnterface - network interface name that users are connected to")
 	print("\tmacXmlFile - path to .xml file that contains structure of users MACS")
 	exit()
@@ -120,7 +120,7 @@ def autoclone(args):
         usage_page()
 
 	sImg = args[1]
-	sInterface = args[2]
+    sInterface = args[2]
 	sXmlPath = args[3]
 
 	if not os.path.exists(os.path.join("/home/partimag", sImg)): # Jezli obraz nie istnieje
