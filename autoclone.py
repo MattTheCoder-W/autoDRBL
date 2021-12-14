@@ -29,7 +29,7 @@ Author: Mateusz Wasaznik 3hSP
 
 # Funkcja do wczytywania listy macow z pliku xml, wraz z wyborem sali oraz typu komputerow
 # sXMLFilePath - 
-def loadxml(sXmlFilePath):
+def loadxml(sXmlFilePath: str):
     with open(sXmlFilePath, "r") as f:
         data = f.read() # Wczytanie zawartosci pliku xml
 
@@ -57,16 +57,16 @@ def loadxml(sXmlFilePath):
     return lMacs
 
 
-def message(content):
+def message(content: str):
     print(f">>> {content} <<<")
 
 
-def raise_error(content):
+def raise_error(content: str):
     print(f">>> {content} <<<")
     exit(1)
 
 
-def dir_path(string):
+def dir_path(string: str):
     if os.path.exists(string):
         if os.path.isdir(string):
             return string
@@ -74,7 +74,7 @@ def dir_path(string):
     raise FileNotFoundError(string)
 
 
-def file_path(string): 
+def file_path(string: str): 
     if os.path.exists(string):
         if not os.path.isdir(string):
             return string
@@ -83,7 +83,7 @@ def file_path(string):
     raise FileNotFoundError(string)
 
 
-def interface(string):
+def interface(string: str):
     try:
         subprocess.check_output(['ifconfig', string], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError: # Jezeli interfejs nie jest uruchomiony lub nie istnieje
@@ -93,7 +93,7 @@ def interface(string):
 
 # Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
 # args - argumenty komendy (tutaj sys.arv), lecz w przyszlej automatyzacji mozna wywolywac funkcje bezposrednio w pythona
-def autoclone(args):
+def autoclone():
     parser = argparse.ArgumentParser()
     parser.add_argument("img", type=dir_path, action="store")
     parser.add_argument("interface", type=interface, action="store")
@@ -142,4 +142,4 @@ def autoclone(args):
     message("DONE!")
 
 if __name__ == "__main__": # wywolanie glownej funkcji programu po uruchomieniu skryptu
-    autoclone(sys.argv)
+    autoclone()
