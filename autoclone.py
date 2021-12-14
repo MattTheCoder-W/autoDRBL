@@ -29,6 +29,7 @@ system image
 Author: Mateusz Wasaznik 3hSP
 """
 
+
 # Ta funkcja pozwala na proszenie uzytkownika w nieskonczonej petli do momentu popdania odpowiedzi spelniajacej kryteria
 # content - tresc zapytania, nospaces - czy nie zezwalac na spacje, numeric - czy odpowiedz ma byc liczba, inRange - zakres w jakim ma byc odpowiedz
 def secureInput(content, nospaces=False, numeric=False, inRange=None):
@@ -128,9 +129,9 @@ def file_path(string):
     raise FileNotFoundError(string)
 
 
-def interface_name(string):
+def interface(string):
     try:
-        subprocess.check_output(['ifconfig', sInterface], tderr=subprocess.STDOUT)
+        subprocess.check_output(['ifconfig', string], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError: # Jezeli interfejs nie jest uruchomiony lub nie istnieje
         raise_error("Specified interface doesn't exists or is not up")
     return string
@@ -141,34 +142,14 @@ def interface_name(string):
 def autoclone(args):
     parser = argparse.ArgumentParser()
     parser.add_argument("img", type=dir_path, action="store")
-    parser.add_argument("int", type=interface_name, action="store")
+    parser.add_argument("interface", type=interface, action="store")
     parser.add_argument("xml", type=file_path, action="store")
     args = parser.parse_args()
+    args = dict(vars(args))
 
-    exit()
-
-    # START - Sprawdzanie poprawnosci argumentow
-    if len(args) != 4:
-        usage_page()
-
-    sImg = args[1]
-    sInterface = args[2]
-    sXmlPath = args[3]
-
-    if not os.path.exists(os.path.join("/home/partimag", sImg)): # Jezli obraz nie istnieje
-        raise_error("Image name doesn't exist! Try finding right name by command: 'ls /home/partimag'")
-
-    try:
-        subprocess.check_output(['ifconfig', sInterface], tderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError: # Jezeli interfejs nie jest uruchomiony lub nie istnieje
-        raise_error("Specified interface doesn't exists or is not up")
-
-    if not os.path.exists(sXmlPath): # Jezeli plik xml nie istnieje
-        raise_error("XML file doesn't exist!")
-
-    print("All parameters are correct!")
-    # END - Sprawdzanie poprawnosci argumentow
-
+    sImg = args['img']
+    sInterface = args['interface']
+    sXmlPath = args['xml']
 
     lMacUsers = loadxml(sXmlPath) # Wczytanie listy MAC-ow z pliku xml (funkcja loadxml)
     for i, sUser in enumerate(lMacUsers):
