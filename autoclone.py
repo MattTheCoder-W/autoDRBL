@@ -163,7 +163,7 @@ def autoclone(args):
             print("MAC:", sMac, "is not in users list!")
             print("This script will automatically add non existing users to DBRL!")
             
-            os.system(f"sudo ./autouseradd.py '{';'.join(lUsers)}' {sInterface}") # Dodanie uzytkownika do DRBL-a (skrypt autouseradd.py)
+            os.system(f"sudo ./autouseradd.py '{';'.join(lIPUsers)}' {sInterface}") # Dodanie uzytkownika do DRBL-a (skrypt autouseradd.py)
 
             sFoundIP = findIP(sMac, sInterface=sInterface) # ponowne znalezienie adresu IP dla nowo dodanego uzytkownika
 
