@@ -170,6 +170,8 @@ def autoclone(args):
         lIPUsers.append(sFoundIP) # dolaczenie znalezionego adresu IP do listy adresow uzytkownikow
     # END - Zamiana kazdego adresu MAC na adres logiczny uzytkownika wewnatrz sieci DRBL-a
 
+    print(lIPUsers)
+
     sIPUsers = ' '.join(lIPUsers) # zamiana listy adresow IP na tekst (adresy oddzielone sa spacjami zgodnie z skladnia komendy drbl-ocs)
     
     # sformuowanie komendy drbl-ocs do przypisania wczytania obrazu systemu przez znalezionych uzytkownikow
