@@ -128,14 +128,14 @@ def autoclone(args):
     # (np. przez crona)
     cmd = f'yes "" | sudo drbl-ocs -g auto -e1 auto -e2 -x -r -j2 -k1 -sc0 -icds -p poweroff --hosts " {sIPUsers} " -l en_US.UTF-8 startdisk restore {sImg} sda'
 
-    print(green("Deploying image..."))
+    print("Deploying image...")
     os.system(cmd) # wywolanie sformuowanej komendy
 
     for sWakeOnLan in lMacUsers:
         os.system(f"sudo etherwake -i {sInterface} {sWakeOnLan}") # wyslanie magic packet dla kazdego uzytkownika
         # UWAGA! nie jest sprawdzane to czy doszedl on do uzytkownika!
 
-    print(green("DONE!"))
+    print("DONE!")
 
 if __name__ == "__main__": # wywolanie glownej funkcji programu po uruchomieniu skryptu
     autoclone(sys.argv)
