@@ -147,7 +147,12 @@ def autoclone(args):
     args = parser.parse_args()
     args = dict(vars(args))
 
-    sImg = args['img']
+    sImg = args['img'].split("/")[-1]
+
+    print("Image name is:", sImg)
+
+    exit()
+
     sInterface = args['interface']
     sXmlPath = args['xml']
 
