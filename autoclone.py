@@ -181,7 +181,7 @@ def autoclone(args):
     # sformuowanie komendy drbl-ocs do przypisania wczytania obrazu systemu przez znalezionych uzytkownikow
     # komenda "yes" z parametrem "" wciska enter na kazde zapytanie komendy drbl-ocs co pozwala na wywolanie skryptu bez obecnosci uzytkownika
     # (np. przez crona)
-    cmd = f'yes "" | sudo drbl-ocs -g auto -e1 auto -e2 -x -r -j2 -k1 -sc0 -icds -p reboot --hosts " {sIPUsers} " -l en_US.UTF-8 startdisk restore {sImg} sda'
+    cmd = f'yes "" | sudo drbl-ocs -g auto -e1 auto -e2 -x -r -j2 -k1 -sc0 -icds -p poweroff --hosts " {sIPUsers} " -l en_US.UTF-8 startdisk restore {sImg} sda'
 
     print(green("Deploying image..."))
     os.system(cmd) # wywolanie sformuowanej komendy
