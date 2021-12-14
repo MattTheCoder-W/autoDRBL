@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import subprocess
 
 
 def dir_path(string: str):
