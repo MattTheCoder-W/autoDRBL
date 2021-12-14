@@ -29,7 +29,6 @@ system image
 Author: Mateusz Wasaznik 3hSP
 """
 
-
 # Ta funkcja pozwala na proszenie uzytkownika w nieskonczonej petli do momentu popdania odpowiedzi spelniajacej kryteria
 # content - tresc zapytania, nospaces - czy nie zezwalac na spacje, numeric - czy odpowiedz ma byc liczba, inRange - zakres w jakim ma byc odpowiedz
 def secureInput(content, nospaces=False, numeric=False, inRange=None):
@@ -112,9 +111,42 @@ def raise_error(content):
     exit(1)
 
 
+def dir_path(string):
+    if os.path.exists(string):
+        if os.path.isdir(string):
+            return string
+        raise NotADirectoryError(string)
+    raise FileNotFoundError(string)
+
+
+def file_path(string): 
+    if os.path.exists(string):
+        if not os.path.isdir(string):
+            return string
+        print(string, "is directory, not a file!")
+        exit(1)
+    raise FileNotFoundError(string)
+
+
+def interface_name(string):
+    try:
+        subprocess.check_output(['ifconfig', sInterface], tderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError: # Jezeli interfejs nie jest uruchomiony lub nie istnieje
+        raise_error("Specified interface doesn't exists or is not up")
+    return string
+
+
 # Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
 # args - argumenty komendy (tutaj sys.arv), lecz w przyszlej automatyzacji mozna wywolywac funkcje bezposrednio w pythona
 def autoclone(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("img", type=dir_path, action="store")
+    parser.add_argument("int", type=interface_name, action="store")
+    parser.add_argument("xml", type=file_path, action="store")
+    args = parser.parse_args()
+
+    exit()
+
     # START - Sprawdzanie poprawnosci argumentow
     if len(args) != 4:
         usage_page()
