@@ -72,13 +72,7 @@ def get_args():
     return args
 
 
-# Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
-# args - argumenty komendy (tutaj sys.arv), lecz w przyszlej automatyzacji mozna wywolywac funkcje bezposrednio w pythona
-def autoclone(sImg: str, sInterface: str, sXmlPath: str):
-    lMacUsers = loadxml(sXmlPath) # Wczytanie listy MAC-ow z pliku xml (funkcja loadxml)
-    for i, sUser in enumerate(lMacUsers):
-        print(f"[{i}] {sUser}")
-
+def macToIP(lMacUsers: list, sInterface: str):
     # START - Zamiana kazdego adresu MAC na adres logiczny uzytkownika wewnatrz sieci DRBL-a
     lIPUsers = [] # tablica na zamienione adresy IPv4
     for sMac in lMacUsers:
@@ -94,6 +88,17 @@ def autoclone(sImg: str, sInterface: str, sXmlPath: str):
     # END - Zamiana kazdego adresu MAC na adres logiczny uzytkownika wewnatrz sieci DRBL-a
 
     sIPUsers = ' '.join(lIPUsers) # zamiana listy adresow IP na tekst (adresy oddzielone sa spacjami zgodnie z skladnia komendy drbl-ocs)
+    return sIPUsers
+
+
+# Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
+# args - argumenty komendy (tutaj sys.arv), lecz w przyszlej automatyzacji mozna wywolywac funkcje bezposrednio w pythona
+def autoclone(sImg: str, sInterface: str, sXmlPath: str):
+    lMacUsers = loadxml(sXmlPath) # Wczytanie listy MAC-ow z pliku xml (funkcja loadxml)
+    for i, sUser in enumerate(lMacUsers):
+        print(f"[{i}] {sUser}")
+
+    sIPUsers = macToIP(lMacUsers, sInterface)
     
     # sformuowanie komendy drbl-ocs do przypisania wczytania obrazu systemu przez znalezionych uzytkownikow
     # komenda "yes" z parametrem "" wciska enter na kazde zapytanie komendy drbl-ocs co pozwala na wywolanie skryptu bez obecnosci uzytkownika
@@ -116,7 +121,6 @@ def main():
     message("Image name is: " + sImg)
     sInterface = args['interface']
     sXmlPath = args['xml']
-
     autoclone(sImg, sInterface, sXmlPath)
 
 
