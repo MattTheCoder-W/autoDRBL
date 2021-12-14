@@ -117,7 +117,7 @@ def main():
     sInterface = args['interface']
     sXmlPath = args['xml']
 
-    autoclone()
+    autoclone(sImg, sInterface, sXmlPath)
 
 
 if __name__ == "__main__": # wywolanie glownej funkcji programu po uruchomieniu skryptu
