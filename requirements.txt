@@ -1,3 +1,4 @@
 curtsies
 argparse
 bs4
+lxml
