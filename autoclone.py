@@ -54,40 +54,17 @@ def loadxml(sXmlFilePath: str):
     else:
         sTyp = None # nie ma typu komputerow
 
-    for users in lUserGroups:
-        if users.get("typ") == sTyp: # jezeli typ grupy z listy grup uzytkownikow zgadza sie z wybranym typem
-            lMacs = users.text.split() # Wczytanie listy MAC adresow
+    lMacs = [users.text.split() for users in lUserGroups if user.get("typ") == sTyp][-1]
+
+    # for users in lUserGroups:
+    #     if users.get("typ") == sTyp: # jezeli typ grupy z listy grup uzytkownikow zgadza sie z wybranym typem
+    #         lMacs = users.text.split() # Wczytanie listy MAC adresow
     return lMacs
 
 
 def raise_error(content: str):
     print(f">>> {content} <<<")
     exit(1)
-
-
-def xdir_path(string: str):
-    if os.path.exists(string):
-        if os.path.isdir(string):
-            return string
-        raise NotADirectoryError(string)
-    raise FileNotFoundError(string)
-
-
-def xfile_path(string: str): 
-    if os.path.exists(string):
-        if not os.path.isdir(string):
-            return string
-        print(string, "is directory, not a file!")
-        exit(1)
-    raise FileNotFoundError(string)
-
-
-def xinterface(string: str):
-    try:
-        subprocess.check_output(['ifconfig', string], stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError: # Jezeli interfejs nie jest uruchomiony lub nie istnieje
-        raise_error("Specified interface doesn't exists or is not up")
-    return string
 
 
 # Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
