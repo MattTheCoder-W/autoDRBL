@@ -150,9 +150,6 @@ def autoclone(args):
     sImg = args['img'].split("/")[-1]
 
     print("Image name is:", sImg)
-
-    exit()
-
     sInterface = args['interface']
     sXmlPath = args['xml']
 
