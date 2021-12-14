@@ -13,12 +13,12 @@ Oznakowanie nazw zmiennych:
 To znakowanie stosuje w wiekszosci moich skryptow w celu usprawnienia pracy ze zmiennymi
 
 Usage:
-	./autoclone.py sImg sInterface
+	./autoclone.py sImg sInterface macXmlFile
 		-> sImg - image folder name form /home/partimag catalog
 		-> sInterface - name of network interface that users are connected to
-
+        -> macXmlFile - file with xml structure with mac addresses of clients
 	Example:
-		./autoclone.py ubuntu-10 local-macs.txt enp0s8
+		./autoclone.py ubuntu-10 enp0s8 testFiles/macs.xml
 
 
 This script contains is full automation of DRBL image deploying process
@@ -98,42 +98,46 @@ def loadxml(sXmlFilePath):
 	return lMacs
 
 
+def usage_page():
+    print("Usage: sudo ./autoclone.py img interface macXmlFile")
+	print("\timg - image folder name from /home/partimag/")
+	print("\tnterface - network interface name that users are connected to")
+	print("\tmacXmlFile - path to .xml file that contains structure of users MACS")
+	exit()
+
+
+def raise_error(content):
+    print(f">>> {content} <<<")
+    exit(1)
+
+
 # Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
 # args - argumenty komendy (tutaj sys.arv), lecz w przyszlej automatyzacji mozna wywolywac funkcje bezposrednio w pythona
 def autoclone(args):
 	# START - Sprawdzanie poprawnosci argumentow
 	if len(args) != 4:
-		print("Usage: sudo ./autoclone.py img interface macXmlFile")
-		print("\timg - image folder name from /home/partimag/")
-		print("\tnterface - network interface name that users are connected to")
-		print("\tmacXmlFile - path to .xml file that contains structure of users MACS")
-		exit()
+        usage_page()
 
 	sImg = args[1]
 	sInterface = args[2]
 	sXmlPath = args[3]
 
 	if not os.path.exists(os.path.join("/home/partimag", sImg)): # Jezli obraz nie istnieje
-		print("Image name doesn't exist! Try finding right name by command: 'ls /home/partimag'")
-		exit()
+		raise_error("Image name doesn't exist! Try finding right name by command: 'ls /home/partimag'")
 
 	try:
-		subprocess.check_output(['ifconfig', sInterface],
-	    	stderr=subprocess.STDOUT)
+		subprocess.check_output(['ifconfig', sInterface], tderr=subprocess.STDOUT)
 	except subprocess.CalledProcessError: # Jezeli interfejs nie jest uruchomiony lub nie istnieje
-		print("Specified interface doesn't exists or is not up")
-		exit()
+		raise_error("Specified interface doesn't exists or is not up")
 
 	if not os.path.exists(sXmlPath): # Jezeli plik xml nie istnieje
-		print("XML file doesn't exist!")
-		exit()
+		raise_error("XML file doesn't exist!")
 
 	print("All parameters are correct!")
 	# END - Sprawdzanie poprawnosci argumentow
 
 
 	lMacUsers = loadxml(sXmlPath) # Wczytanie listy MAC-ow z pliku xml (funkcja loadxml)
-
 	for i, sUser in enumerate(lMacUsers):
 		print(f"[{i}] {sUser}")
 
