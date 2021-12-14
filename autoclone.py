@@ -57,6 +57,10 @@ def loadxml(sXmlFilePath):
     return lMacs
 
 
+def message(content):
+    print(f">>> {content} <<<")
+
+
 def raise_error(content):
     print(f">>> {content} <<<")
     exit(1)
@@ -99,7 +103,7 @@ def autoclone(args):
 
     sImg = args['img'].split("/")[-1]
 
-    print("Image name is:", sImg)
+    message("Image name is:", sImg)
     sInterface = args['interface']
     sXmlPath = args['xml']
 
@@ -128,14 +132,14 @@ def autoclone(args):
     # (np. przez crona)
     cmd = f'yes "" | sudo drbl-ocs -g auto -e1 auto -e2 -x -r -j2 -k1 -sc0 -icds -p poweroff --hosts " {sIPUsers} " -l en_US.UTF-8 startdisk restore {sImg} sda'
 
-    print("Deploying image...")
+    message("Deploying image...")
     os.system(cmd) # wywolanie sformuowanej komendy
 
     for sWakeOnLan in lMacUsers:
         os.system(f"sudo etherwake -i {sInterface} {sWakeOnLan}") # wyslanie magic packet dla kazdego uzytkownika
         # UWAGA! nie jest sprawdzane to czy doszedl on do uzytkownika!
 
-    print("DONE!")
+    message("DONE!")
 
 if __name__ == "__main__": # wywolanie glownej funkcji programu po uruchomieniu skryptu
     autoclone(sys.argv)
