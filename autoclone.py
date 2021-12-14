@@ -54,7 +54,7 @@ def loadxml(sXmlFilePath: str):
     else:
         sTyp = None # nie ma typu komputerow
 
-    lMacs = [users.text.split() for users in lUserGroups if user.get("typ") == sTyp][-1]
+    lMacs = [users.text.split() for users in lUserGroups if users.get("typ") == sTyp][-1]
 
     # for users in lUserGroups:
     #     if users.get("typ") == sTyp: # jezeli typ grupy z listy grup uzytkownikow zgadza sie z wybranym typem
