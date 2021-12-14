@@ -81,7 +81,7 @@ def macToIP(lMacUsers: list, sInterface: str):
             message(f"MAC: {sMac} is not in users list!")
             message("This script will automatically add non existing users to DBRL!")
             
-            os.system(f"sudo ./autouseradd.py '{';'.join(lIPUsers)}' {sInterface}") # Dodanie uzytkownika do DRBL-a (skrypt autouseradd.py)
+            os.system(f"sudo ./autouseradd.py '{';'.join(lMacUsers)}' {sInterface}") # Dodanie uzytkownika do DRBL-a (skrypt autouseradd.py)
 
             sFoundIP = findIP(sMac, sInterface=sInterface) # ponowne znalezienie adresu IP dla nowo dodanego uzytkownika
         lIPUsers.append(sFoundIP) # dolaczenie znalezionego adresu IP do listy adresow uzytkownikow
@@ -101,8 +101,7 @@ def autoclone(sImg: str, sInterface: str, sXmlPath: str):
     sIPUsers = macToIP(lMacUsers, sInterface)
     
     # sformuowanie komendy drbl-ocs do przypisania wczytania obrazu systemu przez znalezionych uzytkownikow
-    # komenda "yes" z parametrem "" wciska enter na kazde zapytanie komendy drbl-ocs co pozwala na wywolanie skryptu bez obecnosci uzytkownika
-    # (np. przez crona)
+    # yes pozwala na wywoływanie komendy bez obecności użytkownika (np. przez crona)
     cmd = f'yes "" | sudo drbl-ocs -g auto -e1 auto -e2 -x -r -j2 -k1 -sc0 -icds -p poweroff --hosts " {sIPUsers} " -l en_US.UTF-8 startdisk restore {sImg} sda'
 
     message("Deploying image...")
