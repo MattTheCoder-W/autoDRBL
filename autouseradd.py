@@ -107,8 +107,6 @@ print("Created new config file!")
 
 # zastosowanie nowej konfiguracji DRBL-a uwzgledniajacej nowych uzytkownikow 
 # (z komenda yes, aby pominac zapytania)
-os.system("pwd")
-exit()
-os.system('yes "" | sudo drblpush -d -c confs/drblpush.conf')
+os.system('yes "" | sudo drblpush -d -c $(pwd)/confs/drblpush.conf')
 
 print("DONE!")
