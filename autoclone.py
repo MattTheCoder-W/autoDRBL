@@ -74,15 +74,7 @@ def get_args():
 
 # Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
 # args - argumenty komendy (tutaj sys.arv), lecz w przyszlej automatyzacji mozna wywolywac funkcje bezposrednio w pythona
-def autoclone():
-    args = get_args()
-
-    sImg = args['img'].split("/")[-1]
-
-    message("Image name is: " + sImg)
-    sInterface = args['interface']
-    sXmlPath = args['xml']
-
+def autoclone(sImg: str, sInterface: str, sXmlPath: str):
     lMacUsers = loadxml(sXmlPath) # Wczytanie listy MAC-ow z pliku xml (funkcja loadxml)
     for i, sUser in enumerate(lMacUsers):
         print(f"[{i}] {sUser}")
@@ -117,5 +109,16 @@ def autoclone():
 
     message("DONE!")
 
-if __name__ == "__main__": # wywolanie glownej funkcji programu po uruchomieniu skryptu
+
+def main():
+    args = get_args()
+    sImg = args['img'].split("/")[-1]
+    message("Image name is: " + sImg)
+    sInterface = args['interface']
+    sXmlPath = args['xml']
+
     autoclone()
+
+
+if __name__ == "__main__": # wywolanie glownej funkcji programu po uruchomieniu skryptu
+    main()
