@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import os, sys, subprocess
 from classes.drbltools import findIP
-from classes.interactive import *
+from classes.interactive import secureInput, choiceFromList, message
+from classes.argtypes import dir_path, file_path, interface
 from bs4 import BeautifulSoup as bs
 import argparse
 
@@ -43,25 +44,20 @@ def loadxml(sXmlFilePath: str):
     iIdSala, iNumSala = choiceFromList([x.get("num") for x in lSale], "$> ")
     message("Wybrano numer sali:" + str(iNumSala))
 
-    lUserGroups = lSale[iIdSala].find_all("users") # Znalezienie listy grup uzytkownikow
-
-    if len(lUserGroups) > 1: # jezeli jest wiecej niz 1 grupa uzytkownikow oznacza to, ze sa one podzielone ze wzgledu na typ komputerow
-        sTyp = choiceFromList([x.get("typ") for x in lUserGroups], f"[{iNumSala}]$> ")[1] # Wczytanie typu komputerow od uzytkownika
-    else: # jest tylko jedna grupa bez podzialu na typ komp.
+    # Znalezienie listy grup uzytkownikow
+    lUserGroups = lSale[iIdSala].find_all("users")
+    
+    if len(lUserGroups) > 1:
+        # Wczytanie typu komputerow od uzytkownika
+        sTyp = choiceFromList([x.get("typ") for x in lUserGroups], f"[{iNumSala}]$> ")[1]
+        message(f"Wybrano typ pc: {sTyp}")
+    else:
         sTyp = None # nie ma typu komputerow
-
-    if sTyp is not None:
-        print("Wybrano typ pc:", sTyp)
 
     for users in lUserGroups:
         if users.get("typ") == sTyp: # jezeli typ grupy z listy grup uzytkownikow zgadza sie z wybranym typem
             lMacs = users.text.split() # Wczytanie listy MAC adresow
-
     return lMacs
-
-
-# def message(content: str):
-#     print(f">>> {content} <<<")
 
 
 def raise_error(content: str):
@@ -69,7 +65,7 @@ def raise_error(content: str):
     exit(1)
 
 
-def dir_path(string: str):
+def xdir_path(string: str):
     if os.path.exists(string):
         if os.path.isdir(string):
             return string
@@ -77,7 +73,7 @@ def dir_path(string: str):
     raise FileNotFoundError(string)
 
 
-def file_path(string: str): 
+def xfile_path(string: str): 
     if os.path.exists(string):
         if not os.path.isdir(string):
             return string
@@ -86,7 +82,7 @@ def file_path(string: str):
     raise FileNotFoundError(string)
 
 
-def interface(string: str):
+def xinterface(string: str):
     try:
         subprocess.check_output(['ifconfig', string], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError: # Jezeli interfejs nie jest uruchomiony lub nie istnieje
