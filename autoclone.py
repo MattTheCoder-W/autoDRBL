@@ -103,7 +103,7 @@ def autoclone(args):
 
     sImg = args['img'].split("/")[-1]
 
-    message("Image name is:", sImg)
+    message("Image name is: " + sImg)
     sInterface = args['interface']
     sXmlPath = args['xml']
 
@@ -116,8 +116,8 @@ def autoclone(args):
     for sMac in lMacUsers:
         sFoundIP = findIP(sMac, sInterface=sInterface) # Wykorzystanie funkcji z pliku classes/drbltools.py (znalezienie adresu IP dla podanego adresu MAC)
         if not sFoundIP: # Jezeli nie znaleziono uzytkownika
-            print("MAC:", sMac, "is not in users list!")
-            print("This script will automatically add non existing users to DBRL!")
+            message(f"MAC: {sMac} is not in users list!")
+            message("This script will automatically add non existing users to DBRL!")
             
             os.system(f"sudo ./autouseradd.py '{';'.join(lIPUsers)}' {sInterface}") # Dodanie uzytkownika do DRBL-a (skrypt autouseradd.py)
 
