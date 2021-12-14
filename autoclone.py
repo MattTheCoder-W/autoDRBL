@@ -39,7 +39,6 @@ def loadxml(sXmlFilePath: str):
 
     # Pobranie listy sal
     lSale = BsContent.find_all("sala")
-
     # Wczytanie indeksu wybranej sali oraz jej numeru fizycznego
     iIdSala, iNumSala = choiceFromList([x.get("num") for x in lSale], "$> ")
     message("Wybrano numer sali:" + str(iNumSala))
@@ -55,10 +54,6 @@ def loadxml(sXmlFilePath: str):
         sTyp = None # nie ma typu komputerow
 
     lMacs = [users.text.split() for users in lUserGroups if users.get("typ") == sTyp][-1]
-
-    # for users in lUserGroups:
-    #     if users.get("typ") == sTyp: # jezeli typ grupy z listy grup uzytkownikow zgadza sie z wybranym typem
-    #         lMacs = users.text.split() # Wczytanie listy MAC adresow
     return lMacs
 
 
@@ -67,15 +62,20 @@ def raise_error(content: str):
     exit(1)
 
 
-# Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
-# args - argumenty komendy (tutaj sys.arv), lecz w przyszlej automatyzacji mozna wywolywac funkcje bezposrednio w pythona
-def autoclone():
+def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("img", type=dir_path, action="store")
     parser.add_argument("interface", type=interface, action="store")
     parser.add_argument("xml", type=file_path, action="store")
     args = parser.parse_args()
     args = dict(vars(args))
+    return args
+
+
+# Funkcja do automatycznego wczytania obrazu systemu przez uzytkownikow DRBL-a (wraz z WOL)
+# args - argumenty komendy (tutaj sys.arv), lecz w przyszlej automatyzacji mozna wywolywac funkcje bezposrednio w pythona
+def autoclone():
+    args = get_args()
 
     sImg = args['img'].split("/")[-1]
 
