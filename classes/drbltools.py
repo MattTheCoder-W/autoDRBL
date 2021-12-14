@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import subprocess
+from pathlib import Path
 
 
 """
@@ -38,6 +39,9 @@ def findIP(sMac, sInterface, verbose=False):
 		lIPs = [x.strip() for x in f.readlines()] # wczytanie listy adresow IP
 
 	sMACListFile = os.path.join("/etc/drbl", f"macadr-{sInterface}.txt") # sciezka do listy MAC-ow uzytkownikow
+
+    if not os.path.exists(sMACListFile):
+        Path(sMACListFile).touch()
 
 	with open(sMACListFile, "r") as f:
 		lMACs = [x.strip() for x in f.readlines()] # wczytanie listy MAC-ow

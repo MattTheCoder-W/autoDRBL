@@ -158,14 +158,14 @@ def autoclone(args):
     # START - Zamiana kazdego adresu MAC na adres logiczny uzytkownika wewnatrz sieci DRBL-a
     lIPUsers = [] # tablica na zamienione adresy IPv4
     for sMac in lMacUsers:
-        sFoundIP = findIP(sMac, sInterface="enp0s8") # Wykorzystanie funkcji z pliku classes/drbltools.py (znalezienie adresu IP dla podanego adresu MAC)
+        sFoundIP = findIP(sMac, sInterface=sInterface) # Wykorzystanie funkcji z pliku classes/drbltools.py (znalezienie adresu IP dla podanego adresu MAC)
         if not sFoundIP: # Jezeli nie znaleziono uzytkownika
             print("MAC:", sMac, "is not in users list!")
             print("This script will automatically add non existing users to DBRL!")
             
             os.system(f"sudo ./autouseradd.py '{';'.join(lUsers)}' {sInterface}") # Dodanie uzytkownika do DRBL-a (skrypt autouseradd.py)
 
-            sFoundIP = findIP(sMac, sInterface="enp0s8") # ponowne znalezienie adresu IP dla nowo dodanego uzytkownika
+            sFoundIP = findIP(sMac, sInterface=sInterface) # ponowne znalezienie adresu IP dla nowo dodanego uzytkownika
 
         lIPUsers.append(sFoundIP) # dolaczenie znalezionego adresu IP do listy adresow uzytkownikow
     # END - Zamiana kazdego adresu MAC na adres logiczny uzytkownika wewnatrz sieci DRBL-a
