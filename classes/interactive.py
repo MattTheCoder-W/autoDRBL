@@ -9,7 +9,7 @@ Author: Mateusz Wasaznik 3hSP
 
 # Ta funkcja pozwala na proszenie uzytkownika w nieskonczonej petli do momentu popdania odpowiedzi spelniajacej kryteria
 # content - tresc zapytania, nospaces - czy nie zezwalac na spacje, numeric - czy odpowiedz ma byc liczba, inRange - zakres w jakim ma byc odpowiedz
-def secureInput(content, nospaces=False, numeric=False, inRange=None):
+def secureInput(content: str, nospaces=False, numeric=False, inRange=None):
     while True:
         answ = input(content)
         if not answ: # Jezeli brak odpowiedzi
@@ -34,7 +34,7 @@ def secureInput(content, nospaces=False, numeric=False, inRange=None):
 
 # Tekstowy wybor elementu z listy przez uzytkownika
 # lChoices - lista z wyborami, inputContent - tresc zapytania (jak content w secureInput())
-def choiceFromList(lChoices, inputContent=""):
+def choiceFromList(lChoices: list, inputContent=""):
     for i, elem in enumerate(lChoices):
         print(f"[{i}]", elem)
 
@@ -43,6 +43,10 @@ def choiceFromList(lChoices, inputContent=""):
     iChoice = secureInput(inputContent, nospaces=True, numeric=True, inRange=range(0, len(lChoices)))
 
     return (iChoice, lChoices[iChoice])
+
+
+def message(content: str):
+    print(f">>> {content} <<<")
 
 
 if __name__ == "__main__": # wywolanie glownej funkcji programu po uruchomieniu skryptu

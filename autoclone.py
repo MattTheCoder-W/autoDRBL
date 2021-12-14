@@ -30,15 +30,18 @@ Author: Mateusz Wasaznik 3hSP
 # Funkcja do wczytywania listy macow z pliku xml, wraz z wyborem sali oraz typu komputerow
 # sXMLFilePath - 
 def loadxml(sXmlFilePath: str):
-    with open(sXmlFilePath, "r") as f:
-        data = f.read() # Wczytanie zawartosci pliku xml
+    # Wczytanie zawartosci pliku xml
+    data = open(sXmlFilePath, "r").read() 
 
-    BsContent = bs(data, "xml") # Zaladowanie zawartosci xml do parsera-xml (tutaj BeautifulSoup4)
-    lSale = BsContent.find_all("sala") # Znalezienie listy sal
+    # Zaladowanie zawartosci xml do parsera-xml (tutaj BeautifulSoup4)
+    BsContent = bs(data, "xml")
 
-    iIdSala, iNumSala = choiceFromList([x.get("num") for x in lSale], "$> ") # Wczytanie indeksu wybranej sali oraz jej numeru fizycznego
+    # Pobranie listy sal
+    lSale = BsContent.find_all("sala")
 
-    print("Wybrano numer sali:", iNumSala)
+    # Wczytanie indeksu wybranej sali oraz jej numeru fizycznego
+    iIdSala, iNumSala = choiceFromList([x.get("num") for x in lSale], "$> ")
+    message("Wybrano numer sali:" + str(iNumSala))
 
     lUserGroups = lSale[iIdSala].find_all("users") # Znalezienie listy grup uzytkownikow
 
@@ -57,8 +60,8 @@ def loadxml(sXmlFilePath: str):
     return lMacs
 
 
-def message(content: str):
-    print(f">>> {content} <<<")
+# def message(content: str):
+#     print(f">>> {content} <<<")
 
 
 def raise_error(content: str):
