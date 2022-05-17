@@ -29,7 +29,7 @@ Author: Mateusz Wasaznik 3hSP
 
 # sprawdzenie czy uzytkownik jest rootem
 if os.geteuid() != 0: # jak nie to mowimy mu papa
-	print(yellow("Please run this script as a root!"))
+	print("Please run this script as a root!")
 	exit()
 
 

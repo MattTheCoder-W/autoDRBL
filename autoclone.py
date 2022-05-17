@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 import os, sys, subprocess
 from classes.drbltools import findIP
 from classes.interactive import secureInput, choiceFromList, message
@@ -62,13 +62,19 @@ def raise_error(content: str):
     exit(1)
 
 
+def check_dir(file: str):
+    full = os.path.join("/home/partimag/", file)
+    dir_path(full)
+    return file
+
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("img", type=dir_path, action="store")
+    parser.add_argument("img", type=check_dir, action="store")
     parser.add_argument("interface", type=interface, action="store")
     parser.add_argument("xml", type=file_path, action="store")
     args = parser.parse_args()
     args = dict(vars(args))
+    print(args)
     return args
 
 
