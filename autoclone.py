@@ -29,13 +29,9 @@ Author: Mateusz Wasaznik 3hSP
 """
 
 # Funkcja do wczytywania listy macow z pliku xml, wraz z wyborem sali oraz typu komputerow
-# sXMLFilePath - 
 def loadxml(sXmlFilePath: str):
-    # Wczytanie zawartosci pliku xml
-    data = open(sXmlFilePath, "r").read() 
-
     # Zaladowanie zawartosci xml do parsera-xml (tutaj BeautifulSoup4)
-    BsContent = bs(data, "xml")
+    BsContent = bs(open(sXmlFilePath, "r").read(), "xml")
 
     # Pobranie listy sal
     lSale = BsContent.find_all("sala")
@@ -57,24 +53,18 @@ def loadxml(sXmlFilePath: str):
     return lMacs
 
 
-def raise_error(content: str):
-    print(f">>> {content} <<<")
-    exit(1)
-
-
 def check_dir(file: str):
     full = os.path.join("/home/partimag/", file)
     dir_path(full)
     return file
+
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("img", type=check_dir, action="store")
     parser.add_argument("interface", type=interface, action="store")
     parser.add_argument("xml", type=file_path, action="store")
-    args = parser.parse_args()
-    args = dict(vars(args))
-    print(args)
+    args = dict(vars(parser.parse_args()))
     return args
 
 
@@ -117,7 +107,7 @@ def autoclone(sImg: str, sInterface: str, sXmlPath: str):
         os.system(f"sudo etherwake -i {sInterface} {sWakeOnLan}") # wyslanie magic packet dla kazdego uzytkownika
         # UWAGA! nie jest sprawdzane to czy doszedl on do uzytkownika!
 
-    message("DONE!")
+    message("Wyslano pakiety WakeOnLAN do wybranych uzytkownikow, program zakonczyl swoja prace")
 
 
 def main():
