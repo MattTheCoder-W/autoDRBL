@@ -29,17 +29,18 @@ pip3 install -r requirements.txt
 
 ### Automatyczny WakeOnLAN
 
-`sudo ./autoclone.py img interface xml`
+`./autoclone.py img interface xml wakeonlan`
 
 | parametr | opis | przykład |
 | -------- | ---- | -------- |
 | `img` | nazwa obrazu | `ubuntu-10` (/home/partimag/ubuntu-10) |
 | `interface` | int. sieciowy | `enp0s8` |
 | `xml` | plik xml | `testFiles/macs.xml` |
+| `wakeonlan` | czy wykonać wake on lan | `0` lub `1` |
 
 Przykład:
 
-`sudo ./autoclone.py ubuntu-10 enp0s8 testFiles/macs.xml`
+`./autoclone.py ubuntu-10 enp0s8 testFiles/macs.xml 1`
 
 Po wywolaniu tej komendy skrypt:
 * sprawdzi poprawność podanych argumentów
