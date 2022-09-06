@@ -49,3 +49,21 @@ Po wywolaniu tej komendy skrypt:
 * korzystając z komendy `drbl-ocs` ustawi automatyczne wczytywanie wybranego obrazu systemu przez użytkowników
 * wyśle magic packets, w celu wywołania WakeOnLAN dla wybranych użytkowników
 * Użytkownicy po poprawnym załdowaniu obrazu automatycznie się wyłączą
+
+## Do zrobienia
+
+- [ ] Dodać do dokumentacji DHCP-Relay
+- [ ] Wgrać nową wersję na ten projekt z akutalnego serwera w szkole
+- [ ] Zoptymalizować stary kod
+- [ ] Przetestować działanie serwera na bloku B
+- [ ] Napisać panel sterowania w formie WWW
+    - [ ] Interfejs
+    - [ ] Wywoływanie komend po interakcji ze stroną (najprawdopodobniej Python lub PHP)
+    - [ ] Wybór obrazu do resetu
+    - [ ] Wranieobrazu
+    - [ ] Usunięcie brazu
+    - [ ] Zaplanowanie resetu
+    - [ ] Anulowanie zaplanowanego resetu
+    - [ ] Zarządzanie bazą MAC Adresów
+    - [ ] Graficzne przedstawienie sal
+    - [ ] Wybór obrazu tylko dla konkretnych komputerów
