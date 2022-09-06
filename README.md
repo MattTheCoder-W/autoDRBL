@@ -1,7 +1,6 @@
-# autoDRBL
-Automatyzacja serwera DRBL.
+![](https://github.com/MattTheCoder-W/MyFiles/blob/main/Projects/DRBL/drbl-banner.png?raw=true)
 
-## Wymagania
+# Wymagania
 Linux:
 
 ```
@@ -20,14 +19,14 @@ pip3 install -r requirements.txt
 
 ---
 
-## Sposób użycia
+# Sposób użycia
 
-### Przygotowanie
+## Przygotowanie
 1. Przygotować obraz sysytemu, znajdujacy się pod sciezką `/home/partimag/OBRAZ`
 2. Ustawić odpowiedni interfejs sieciowy pod serwer DRBL (w przykladzie `enp0s8`)
 3. Przygotować listę MAC adresów w pliku XML zgodnym ze strukturą znajdujacą się w pliku [macs.xml](testFiles/macs.xml)
 
-### Automatyczny WakeOnLAN
+## Automatyczny WakeOnLAN
 
 `./autoclone.py img interface xml wakeonlan`
 
@@ -50,7 +49,7 @@ Po wywolaniu tej komendy skrypt:
 * wyśle magic packets, w celu wywołania WakeOnLAN dla wybranych użytkowników
 * Użytkownicy po poprawnym załdowaniu obrazu automatycznie się wyłączą
 
-## Do zrobienia
+# Do zrobienia
 
 - [ ] Dodać do dokumentacji DHCP-Relay
 - [ ] Wgrać nową wersję na ten projekt z akutalnego serwera w szkole
